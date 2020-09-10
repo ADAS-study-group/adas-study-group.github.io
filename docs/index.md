@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Welcome to Blog of ADAS Study Group
 
 You can use the [editor on GitHub](https://github.com/ADAS-study-group/yocto_basics/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
 
