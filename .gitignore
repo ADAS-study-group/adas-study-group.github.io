@@ -1,5 +1,6 @@
 # python compiled files
 *.pyc
+.jekyll-cache
 
 # jekyll debug
 _site
