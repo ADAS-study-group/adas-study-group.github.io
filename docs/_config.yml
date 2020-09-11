@@ -7,7 +7,7 @@
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 #--------------------------
-
+remote_theme : chirpy
 title: ADAS Study Group Tech Blog         # the main title
 
 tagline: No Pain No Gain  # it will display as the sub-title
