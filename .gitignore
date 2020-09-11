@@ -1,4 +1,3 @@
-docs/.*
 # python compiled files
 *.pyc
 
