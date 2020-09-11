@@ -7,12 +7,6 @@ title: About Us
 # © 2017-2019 Cotes Chung
 # MIT License
 ---
-![Desktop View]({{ "/assets/img/about/us.jpg" | relative_url }})
-
-## What we are looking into
-
-![Desktop View]({{ "/assets/img/about/main.jpg" | relative_url }})
-
 ## Participants
 
 | Name   | Email                  |
@@ -23,3 +17,9 @@ title: About Us
 | 이재하 | jh708009@gmail.com     |
 | 조승현 | coolwind@hotmail.co.kr |
 | 이현호 | happydog4927@gmail.com |
+
+![Desktop View]({{ "/assets/img/about/us.jpg" | relative_url }})
+
+## What we are looking into
+
+![Desktop View]({{ "/assets/img/about/main.jpg" | relative_url }})

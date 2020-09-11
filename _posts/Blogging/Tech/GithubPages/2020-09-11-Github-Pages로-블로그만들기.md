@@ -1,4 +1,11 @@
-# Github Blog 만들기 
+---
+title: Github Blog 만들기 
+author: Jay Lee
+date: 2020-09-11 14:10:00 +0800
+categories: [Blogging, Tech, GithubPages]
+tags: [GithubPages]
+---
+
 ## How it works
 Github 에서는 해당 계정 Username 이름으로 연동된 web page를 제공해둔다.
 
