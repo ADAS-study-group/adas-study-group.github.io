@@ -28,7 +28,7 @@ Recipes(.bb .bbappend) : 테스크가 실행되도록 정의하고 비트베이�
 
 - $: bitbake -e <recipe> | grep <variable>
 
-### 메타데이터 변수
+#### 메타데이터 변수
 
 - #####기본 변수 설정
 
@@ -219,6 +219,8 @@ OVERRIDES를 호출해 메커니즘을 만듬
  TEST_os = "osval"
 
  TEST의 값은 bsval
+ 
+-------------------------------
 
 - ##### 조건적 추가
 
@@ -232,10 +234,84 @@ OVERRIDES를 호출해 메커니즘을 만듬
  
 DEPENDS의 값은 A B C
 
-- ##### 파일 포함
+--------------------------------------
 
+#### 파일 포함
+    
+비트베이크는 파일을 포함하기 위한 2가지 방법을 제공
 
+1. include
+
+비트베이크는 그 위치에 있는 파일을 추가하는 것을 시도하고. 추가 라인에서 특정 경로가 상대 경로이면 비트베이크는 bbpath내에서 찾을 수 있는 첫번째 것을 포함시킨다.
+
+2. Required 
+
+required 파일을 찾을 수 없으면 ParseError발생. 이외에는 include와 동일
+
+--------------------------
+
+#### 파이썬 변수 설정
+
+비트베이크는 변수 설정 시 쉽게 파이썬 코드를 사용 가능
+
+VARIABLE = "${<python-command>}"
+
+ex)
+
+DATE = DATE = "${(atlme.strftime(1 %Y%m%d1 ,time.gmtime())}"
+
+DATE의 값은 오늘의 날짜.
+
+#### 실행 가능한 메타데이터 정의
+
+메타데이터 레시피와 클래스 파일들은 예시와 같은 셀 스크립트를 이용해 만들 수 있음.
+
+ex)
+
+* 셀 스크립트
+
+do_mytask () {\
+echo "Hello, world!"\
+}
+
+* 파이썬 코드임을 표시해서 비트베이크가 파이썬 코드임을 알고 이에 맞게 실행하도록 python 표시
+
+python do_prlntdate () { \
+import time\
+print tlme.strftlme('%Y%m%d', tlme.gmtime())\
+}
+
+-------------------------------------------------
+
+### 전역 네임스페이스에서 파이썬 함수 정의
+
+변수나 또 다른 사용을 위한 값을 만들어내기 위해 파이썬 함수를 사용할 필요가 있다.
+
+ex)
+
+def get_depends(d):\
+  if d.getVar(1SOMECONDITION'):\
+      return "dependencywlthcond \
+  else:\
+      return "dependency"\
+SOMECONDITION = T\
+DEPENDS = "${@get_depends(d)}"
+
+DEPENDS의 값은? dependencywlthcond
+
+모든 메타데이터 사이에 규약은 비트베이크의 데이터베이스를 가리키는 데 d 변수를 사용 한다. 그리고 d 변수는 함수의 마지막 파라미터로도 자주 사용한다. 앞의 예에서 데이터베이스는 SOMECONDITION 변수 값을 데이터베이스에 요청하고 그 것에 의존성 있는 값을 리턴한다.
+이 예제에서 DEPENDS의 결과는 dependencywithcond다.
+
+------------------------------------------------------
+
+### 상속 시스템
+
+inherit 지시어는 레시피(.bb)에서 필요한 기능의 클래스를 사용하는 방법이다. 이것 은 상속의 기본적인 형식이다. 예를 들어 autoconf나 automake에 관련된 작업을 쉽 게 추상화할 수 있고，그것을 레시피에서 사용하기 위해 .bbclass에 넣을 수 있다. 주어진 .bbclass는 BBPATH에서 상속받은 파일 이름인 classes/filename.bbclass로 찾 을 수 있다. autoconf 또는 automake를 사용하는 레시피에서 다음과 같이 사용할 수 있다.
    
+   
+ex)
+Inherit autotools
+
 
 
 
