@@ -1,0 +1,14 @@
+# docker run --rm --volume="$PWD:/srv/jekyll" -p 4000:4000 jekyll/jekyll:stable jekyll serve
+
+version: '3'
+services:
+    jekyll-serve:
+        image: jekyll/jekyll:stable
+        volumes:
+            - '.:/srv/jekyll'
+        ports:
+            - 4000:4000
+        # command: 'jekyll serve --force_polling --incremental'
+        # command: 'bash tools/build.sh'
+        # command: 'bash tools/test.sh'
+        command: 'bash tools/run.sh'
