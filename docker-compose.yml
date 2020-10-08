@@ -8,7 +8,4 @@ services:
             - '.:/srv/jekyll'
         ports:
             - 4000:4000
-        # command: 'jekyll serve --force_polling --incremental'
-        # command: 'bash tools/build.sh'
-        # command: 'bash tools/test.sh'
-        command: 'bash tools/run.sh'
+        command: 'jekyll serve --force_polling --incremental'
