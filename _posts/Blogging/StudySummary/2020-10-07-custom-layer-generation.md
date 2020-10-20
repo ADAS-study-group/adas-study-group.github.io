@@ -2,7 +2,7 @@
 title: 사용자 Layer 생성
 layout: post
 author: Jo, SeungHyeon
-categories: [Blogging, Study summary]
+categories: [Blogging, StudySummary]
 tags: [Yocto, Layer]
 ---
 ## 새로운 Layer 추가

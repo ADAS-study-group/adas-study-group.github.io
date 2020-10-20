@@ -2,7 +2,7 @@
 title: 외부 레이어
 layout: post
 author: Jo, SeungHyeon
-categories: [Blogging, Study summary]
+categories: [Blogging, StudySummary]
 tags: [Yocto, Layer]
 ---
 ## Layer를 이용한 유연성 확보
