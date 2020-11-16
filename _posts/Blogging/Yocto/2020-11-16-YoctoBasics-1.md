@@ -4,7 +4,7 @@ author : Jay Lee
 date: 2020-11-16 10:00:00 +0800
 categories: [Blogging, Yocto]
 tags: [Yocto, Bitbake, OpenEmbedded, Linux]
-img : /assets/img/post/2020-11-16/yocto.png
+image : /assets/img/post/2020-11-16/yocto.png
 
 ---
 
