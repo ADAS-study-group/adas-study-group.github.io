@@ -2,12 +2,10 @@
 title: Study summary 기록 2020-09-15
 author: Leehyunho94
 date: 2020-09-15 14:10:00 +0800
-categories: [Blogging, StudySummary]
+categories: [Blogging, Studysummary]
 tags: [Writing, Yocto]
 ---
-
-
-# 07 비트베이크 메타데이터 참고 자료
+## 07 비트베이크 메타데이터 참고 자료
 
 ### 메타데이터 사용
 

@@ -2,12 +2,10 @@
 title: Study summary 기록 2020-09-28
 author: Leehyunho94
 date: 2020-10-05 12:00:00 +0800
-categories: [Blogging, StudySummary]
+categories: [Blogging, Studysummary]
 tags: [Writing, Yocto]
 ---
-
-
-### 08 Yocto 프로젝트를 이용한 개발
+## 08 Yocto 프로젝트를 이용한 개발
 
 소프트웨어 개발 키트란 , SDK ?
 
