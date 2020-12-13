@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Beginning Google Cloud Platform
-categories: [GCP]
+categories: [Blogging, Tech, RaspberryPi]
 tags: [gcp, google, iot, raspberrypi, link]
 ---
 
