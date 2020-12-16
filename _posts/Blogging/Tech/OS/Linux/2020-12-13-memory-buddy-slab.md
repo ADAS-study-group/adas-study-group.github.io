@@ -51,15 +51,11 @@ struct free_area{
   ex 2) order 가 10이라면 2^10으로 1024개의 page들이(4MB) 하나의 묶음
   ex 3)시스템이 16KB 의 메모리를 요청했다면 2^4(16), 즉 order 4인 free_area[4].free_list 에 연결되어 있는 page 를 받게 된다는 것
 
-<center>
 ![Desktop View]({{ "/assets/img/post/2020-12-12/07.order-freearea-pageblock.png" | relative_url }})
-</center>
 
 ##### 요청되는 order 에 연속적인 page 를 할당해줄 수 있는 것이다. 물론 꼭 연속적이지 않더라고 할당은 할 수 있는데 최대한 연속적인 메모리를 할당해 주려고 노력하기 위한 알고리즘인 것이다.
 
-<center>
 ![Desktop View]({{ "/assets/img/post/2020-12-12/08.buddy-1.png" | relative_url }})
-</center>
 
 * 2page 요청 시 
   1. 현재 5,10,12,13,14,15 페이지가 비어있다
@@ -92,9 +88,7 @@ struct free_area{
 - 페이지 할당 함수 __alloc_pages()
 - 페이지 해제 함수 __free_pages()
 - 시스댐의 버디 할당자 관련 정보는 “cat /proc/buddyinfo" 명령을 통해 확인해 볼 수 있다.
-<center>
 ![Desktop View]({{ "/assets/img/post/2020-12-12/09.buddy-info.png" | relative_url }})
-</center>
 
 #### 슬랩 할당자(Slab Allocator)
 - 4KB보다 작은 크기 요청했을 경우 
@@ -103,9 +97,7 @@ struct free_area{
 
 - 미리 4KB 페이지 프레임을 한 개 할당받은 뒤， 이 공간을 64Byte 크기 64개로 분할해 둔다.(64 x 64=4096(4KB))
 - 마치 일종의 cache로 사용하는 것이고 cache의 집합(?)을 통해 메모리를 관린하는 정책을 슬랩할당자라고 부른다.
-<center>
 ![Desktop View]({{ "/assets/img/post/2020-12-12/10.slab.png" | relative_url }})
-</center>
 
 - Object (64byte) --> slab (**full/free/partial) --> cache
   **캐시에는 다음과 같은 3가지의 슬랩 리스트가 있다.

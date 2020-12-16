@@ -28,9 +28,7 @@ page frame, zone, node구조를 통한 전체 물리 메모리 관리 기법을 
 - 뱅크를 표현하는 자료구조(~/include/linux/mmzone.h)
 - 램관련 자료구조(?
 - UMA구조에서는 한 개의 노드를 사용하기 때문에 전역변수인 contig_page_data (linux/mm/page_alloc.c)를 통해 접근이 가능하고, NUMA구조라면 복수개의 노드를 pgdat_list (linux/arch/ia64/mm/discontig)라는 리스트를 통해 관리하여 하드웨어의 시스템에 관계없이 노드라는 일관된 자료구조를 통해서 전체 물리메모리에 접근할 수 있다
-<center>  
 ![Desktop View]({{ "/assets/img/post/2020-12-12/01.band-node-UMA-NUMA.png" | relative_url }})
-</center>
 
 ##### ! 리눅스는 하드웨어System에 관계없이 node라는 일관된 자료 구조로 전체 physical memory(물리메모리)에 접근할 수 있게 된다.
 
@@ -47,9 +45,7 @@ page frame, zone, node구조를 통한 전체 물리 메모리 관리 기법을 
 -> ZONE_HIGHMEM 이 있는 이유
   : 물리 메모리가 4GB 라고 하더라도, 실제 커널의 가상 주소 공간은 1GB 이므로, 나머지 3GB 가 User Process 들에 의해 쓰이지 않더라도, 커널은 그 공간을 쓸 수가 없다.  이러한 비효율성을 극복하기 위해서, ZONE_NORMAL 영역(~896MB) 까지는 커널 주소공간과 물리 메모리 공간을 1:1 매핑하고,, 나머지 부분에 대해서는 필요할 때 동적으로 커널 주소공간과 연결시켜준다. 
 
-<center>  
 ![Desktop View]({{ "/assets/img/post/2020-12-12/02.Zone.png" | relative_url }})
-</center>
 
 ```
 cat /proc/zoneinfo  (zone 정보 분석을 위해 사용)
@@ -113,9 +109,7 @@ Node 0, zone   Normal
   (include/linux/mm_types.h)
 - 리눅스는 모든 물리 메모리에 접근 가능해야 하므로, 시스템 부팅 시 모든 page frame 에 대한  page 구조체가 할당되어 메모리에 저장된다.   mem_map 이라는 전역 배열을 통해 접근 가능하다.
 - 이러한 page frame 은 Node (pg_data_t 구조체) 안에 node_mem_map 변수를 통해 연결된다.
-<center>
 ![Desktop View]({{ "/assets/img/post/2020-12-12/03.page-frame.png" | relative_url }})
-</center>
 
 
 ### 정리
