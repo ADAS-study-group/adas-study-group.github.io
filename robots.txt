@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /norobots/
+
+Sitemap: https://adas-study-group.github.io/yocto_basics//sitemap.xml
