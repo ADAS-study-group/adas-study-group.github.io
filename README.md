@@ -11,6 +11,7 @@ ADAS Study Group의 Blog Post 를 관리하는 Repository입니다
 | 이재하 | jh708009@gmail.com     |
 | 조승현 | coolwind@hotmail.co.kr |
 | 이현호 | happydog4927@gmail.com |
+| 장정화 | junghwa7601@gmail.com  |
 
 
 ## Theme
